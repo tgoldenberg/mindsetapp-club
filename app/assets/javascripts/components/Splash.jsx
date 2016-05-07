@@ -14,29 +14,29 @@ class Splash extends React.Component{
           </div>
         </div>
         <div className="container" style={styles.container}>
-          <h4>
+          <h4 style={{ width: '100%', textAlign: 'center' }}>
             You tell us what you are teaching or learning. We find you more practice problems.
           </h4>
           <div style={styles.row}>
-            <div>
-              <img src='' />
+            <div style={styles.iconContainer}>
+              <i className="material-icons md-48">content_paste</i>
               <p>Teachers add problem sets</p>
             </div>
-            <div>
-              <img src='' />
+            <div style={styles.iconContainer}>
+              <i className="material-icons md-48">vpn_key</i>
               <p>Our algorithm interprets and categorizes problems</p>
             </div>
-            <div>
-              <img src='' />
+            <div style={styles.iconContainer}>
+              <i className="material-icons md-48">thumb_up</i>
               <p>Teachers select from suggested problem sets</p>
             </div>
-            <div>
-              <img src='' />
+            <div style={styles.iconContainer}>
+              <img src='assets/ic_sentiment' style={{ width: 48 }} />
               <p>Teacher work is amplified</p>
             </div>
-            <div>
-              <img src='' />
-              <p>Students can practice new problems and sync their phone calendars for assignments</p>
+            <div style={styles.iconContainer}>
+              <i className="material-icons md-48">school</i>
+              <p>Students can practice and sync their phone calendars</p>
             </div>
           </div>
         </div>
@@ -52,6 +52,12 @@ let styles = {
     alignItems: 'center',
     height: '100%',
     width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  iconContainer: {
+    flex: 1,
+    alignItems: 'center',
     display: 'flex',
     flexDirection: 'column',
   },

@@ -22,5 +22,20 @@ module MindsetApp
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+    
+    Paperclip.options[:image_magick_path] = ENV['PAPERCLIP_IMAGEMAGICK_PATH']
+
+    Paperclip::Attachment.default_options.merge!(
+      storage: :s3,
+      bucket:  "fresh-set",
+      url:     ':s3_path_url',
+      path:    ":class/:attachment/:id/:filename",
+      s3_credentials: {
+        access_key_id:     ENV['S3_ACCESS_KEY_ID'],
+        secret_access_key: ENV['S3_SECRET_ACCESS_KEY']
+      },
+      s3_host_name: ENV['S3_HOSTNAME'],
+      s3_protocol: ''
+    )    
   end
 end

@@ -27,7 +27,7 @@ module MindsetApp
 
     Paperclip::Attachment.default_options.merge!(
       storage: :s3,
-      bucket:  "fresh-set",
+      bucket:  "mindset-app",
       url:     ':s3_path_url',
       path:    ":class/:attachment/:id/:filename",
       s3_credentials: {

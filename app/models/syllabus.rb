@@ -9,7 +9,7 @@ class Syllabus < ActiveRecord::Base
 	validates_attachment_content_type :up_load, content_type: "application/pdf"
 
   def s3_credentials
-    {:bucket => "fresh-set", :access_key_id => "AKIAJLKKNJGIRJRQYZUA", :secret_access_key => "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"}
+    {:bucket => "mindset-app", :access_key_id => ENV['S3_ACCESS_KEY_ID'], :secret_access_key => ENV['S3_SECRET_ACCESS_KEY']}
   end
 
   # GET INSTANCE AND PUBLIC URL

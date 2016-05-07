@@ -24,6 +24,7 @@ class SyllabusesController < ApplicationController
   # POST /syllabuses
   # POST /syllabuses.json
   def create
+
     @syllabus = Syllabus.new(syllabus_params)
 
     respond_to do |format|
@@ -69,6 +70,6 @@ class SyllabusesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def syllabus_params
-      params.fetch(:syllabus, {})
+      params.require(:syllabus).permit(:up_load)
     end
 end

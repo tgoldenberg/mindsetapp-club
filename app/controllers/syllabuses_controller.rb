@@ -24,7 +24,17 @@ class SyllabusesController < ApplicationController
   # POST /syllabuses
   # POST /syllabuses.json
   def create
+
+    byebug
+
     @syllabus = Syllabus.new(syllabus_params)
+
+    # convert pdf to text
+    # send prem text blob
+    # json_obj = {x: 1}
+    # json_obj = json_obj.to_json
+    # system("curl --request POST --url http://52.5.47.112:8080/ --header 'cache-control: no-cache' --header 'content-type: application/json' --header 'postman-token: e58dd45c-3985-2e19-4648-111a702f1f12' --data '#{json_obj}'")
+    # get response and create topics / tags
 
     respond_to do |format|
       if @syllabus.save
@@ -69,6 +79,6 @@ class SyllabusesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def syllabus_params
-      params.fetch(:syllabus, {})
+      params.require(:syllabus).permit(:up_load)
     end
 end

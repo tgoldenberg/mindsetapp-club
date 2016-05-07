@@ -114,7 +114,7 @@ def cleanInputText(text):
 def cleanupTag(candidate):
 	parenIdx = candidate.find('(')
 
-	if parenIdx < 0:
+	if parenIdx < 1:
 		return candidate
 	else:
 		return candidate[:parenIdx-1]

@@ -8,11 +8,10 @@ class StringGeneratorWebService(object):
 	exposed = True
 
 	@cherrypy.tools.json_out()
-	@cherrypy.tools.json_in()
-	@cherrypy.tools.accept(media='application/json')
+	@cherrypy.tools.accept(media='text/plain')
 	def POST(self):
 		print "got input!"
-		inputData = cherrypy.request.json
+		inputData = cherrypy.request.body.read()
 	
 		print "input is json parsed!"
 		print inputData
@@ -22,9 +21,9 @@ class StringGeneratorWebService(object):
 		conceptInsightPass = os.environ.get('CONCEPT_INSIGHT_PASS')
 
 		print "getting the text attr from input!"
-		payload = inputData.get('text', "")
+		payload = inputData
 
-		dev = inputData.get("dev", False)
+		dev = inputData[0:1] == 'x'
 		if not dev:
 			return {
 					"title": "Mrs. Johnson's Algebra II Class",
@@ -57,25 +56,52 @@ class StringGeneratorWebService(object):
 		print "Payload!"
 		print payload
 
+		payload = extractTopicsSection(payload)
+
 		print "POSTing to Watson!"
 		r = requests.post(watsonURL, 
 				data = payload, 
 				headers = {'Content-Type': 'text/plain'},
 				auth=(conceptInsightUser, conceptInsightPass))
 
-		print "About to print Watson response!"
-		print r.content
 
 		print "Getting the annotations from Watson response!"
 		conceptList = r.json().get('annotations', [])
 
-		for concept in conceptList:
-			print concept
+		conceptList = filterByScore(conceptList)
+
+		topicsList = payload.split('\n')
 		
-		filteredConceptList = filterByScore(conceptList)
+		resultTopics = [];
+		for topic in topicsList:
+			resultTopics.append({'topic':topic, 'tags':[]})
+		
+		conceptSet = {}
+		for concept in conceptList:
+			# Each topic has a newline at the end of it. Count how many newlines we have to cross to get to this concept's location.
+			topicNumber = payload[:concept.get('text_index', [])[0]].count('\n')
+			conceptsInTopic = conceptSet.get(topicNumber, set([]))
+			conceptsInTopic.add(concept['concept']['label'])
+			conceptSet[topicNumber] = conceptsInTopic
+		
+		conceptSetKeys = set(conceptSet.keys())
 
-		return {'concepts': filteredConceptList}
+		i = 0
+		for topic in topicsList:
+			print "topic: " + topic
+			if i in conceptSetKeys:
+				print "here"
+				conceptsInTopic = conceptSet[i]
+				tags = list(conceptsInTopic)
+				print tags
+				resultTopics[i]['tags'] = tags				
+			i += 1
 
+		return {'result': resultTopics}
+
+
+def extractTopicsSection(payload):
+	return payload
 
 def filterByScore(conceptList):
 	result = []

@@ -72,8 +72,19 @@ class StringGeneratorWebService(object):
 		for concept in conceptList:
 			print concept
 		
-		return {'concepts': conceptList}
+		filteredConceptList = filterByScore(conceptList)
 
+		return {'concepts': filteredConceptList}
+
+
+def filterByScore(conceptList):
+	result = []
+
+	for concept in conceptList:
+		if concept['score'] > 0.8:
+			result.append(concept)
+
+	return result
 
 if __name__ == '__main__':
 	conf = {

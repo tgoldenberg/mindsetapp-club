@@ -21,9 +21,13 @@ class StringGeneratorWebService(object):
 		conceptInsightPass = os.environ.get('CONCEPT_INSIGHT_PASS')
 
 		print "getting the text attr from input!"
-		payload = inputData
+		payload = cleanInputText(inputData)
 
 		dev = inputData[0:1] == 'x'
+
+		# Dev flag is forced on
+		dev = True
+
 		if not dev:
 			return {
 					"title": "Mrs. Johnson's Algebra II Class",
@@ -103,6 +107,9 @@ class StringGeneratorWebService(object):
 			i += 1
 
 		return {'result': resultTopics}
+
+def cleanInputText(text):
+	return ''.join([i if ord(i) < 128 else ' ' for i in text])
 
 def cleanupTag(candidate):
 	parenIdx = candidate.find('(')

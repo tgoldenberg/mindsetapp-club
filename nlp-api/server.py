@@ -81,7 +81,12 @@ class StringGeneratorWebService(object):
 			# Each topic has a newline at the end of it. Count how many newlines we have to cross to get to this concept's location.
 			topicNumber = payload[:concept.get('text_index', [])[0]].count('\n')
 			conceptsInTopic = conceptSet.get(topicNumber, set([]))
-			conceptsInTopic.add(concept['concept']['label'])
+
+			conceptLabel = cleanupTag(concept['concept']['label'])
+
+			if conceptLabel != '':
+				conceptsInTopic.add(conceptLabel)
+			
 			conceptSet[topicNumber] = conceptsInTopic
 		
 		conceptSetKeys = set(conceptSet.keys())
@@ -98,6 +103,14 @@ class StringGeneratorWebService(object):
 			i += 1
 
 		return {'result': resultTopics}
+
+def cleanupTag(candidate):
+	parenIdx = candidate.find('(')
+
+	if parenIdx < 0:
+		return candidate
+	else:
+		return candidate[:parenIdx-1]
 
 
 def extractTopicsSection(payload):

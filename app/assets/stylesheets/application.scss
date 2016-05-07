@@ -39,6 +39,8 @@ p, a {
 .splash-dark {
   height: 400px;
   width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
   background-image:
     linear-gradient(
       rgba(0, 0, 0, 0.5),

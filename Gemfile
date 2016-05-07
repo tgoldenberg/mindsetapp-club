@@ -12,7 +12,6 @@ gem 'devise'
 gem 'rest-client'
 gem 'paperclip'
 gem 'aws-sdk', '~> 1.5.7'
-gem 'rich'
 gem 'pdf-reader'
 
 group :production do

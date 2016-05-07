@@ -85,9 +85,6 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (1.8.3)
-    kaminari (0.16.3)
-      actionpack (>= 3.0.0)
-      activesupport (>= 3.0.0)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
@@ -117,8 +114,6 @@ GEM
       ttfunk
     pg (0.18.4)
     rack (1.6.4)
-    rack-raw-upload (1.1.1)
-      multi_json
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.5)
@@ -155,14 +150,6 @@ GEM
       railties (>= 4.2.0, < 5.1)
     rest-client (1.6.7)
       mime-types (>= 1.16)
-    rich (1.4.6)
-      jquery-rails
-      kaminari
-      mime-types
-      paperclip
-      rack-raw-upload
-      rails (>= 3.2.0)
-      sass-rails
     ruby-rc4 (0.1.5)
     sass (3.4.22)
     sass-rails (5.0.4)
@@ -214,7 +201,6 @@ DEPENDENCIES
   rails (= 4.2.5)
   rails_12factor
   rest-client
-  rich
   sass-rails (~> 5.0)
   spring
   turbolinks

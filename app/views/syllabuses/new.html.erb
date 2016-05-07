@@ -1,5 +1,15 @@
-<h1>New Syllabus</h1>
+<h1>Hello From Mind Set App (dot CLUB)</h1>
 
-<%= render 'form' %>
+<h2>Upload a syllabus!</h2>
 
-<%= link_to 'Back', syllabuses_path %>
+<br>
+
+<%= form_for @syllabus, url: syllabuses_path, html: { multipart: true } do |form| %>
+  <%= form.file_field :up_load %>
+  <%= form.submit 'up load syllabus'%>
+<% end %>
+
+<br>
+
+<%= link_to 'problems', problems_path %>
+<%= link_to 'topics', topics_path %>

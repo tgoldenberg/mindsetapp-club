@@ -22,10 +22,38 @@ $red: '#ff1900';
 $offwhite: '#e9e9e9';
 $dark-gray: '#777';
 
+.navbar-inverse {
+  margin-bottom: 0px;
+}
+
 p, a {
   font-size: 18px;
 }
 
 .navbar-nav li a {
   padding-top: 25px;
+}
+
+.splash-dark {
+  height: 400px;
+  width: 100%;
+  background-image:
+    linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ),
+    url(http://3.bp.blogspot.com/-ifi00rWe668/UaYqZwBFF5I/AAAAAAAAAVk/TyyhmL52xq4/s1600/teachers-looping.png);
+}
+
+h1.splash {
+  font-size: 56px;
+  font-weight: bold;
+}
+.white-text {
+  color: white;
+}
+
+h4.splash {
+  font-size: 28px;
+  font-weight: 300;
 }

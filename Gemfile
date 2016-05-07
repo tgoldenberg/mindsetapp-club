@@ -16,6 +16,7 @@ gem 'rest-client'
 gem 'paperclip'
 gem 'aws-sdk', '~> 1.5.7'
 gem 'pdf-reader'
+gem 'material_icons'
 
 group :production do
 	gem 'rails_12factor'

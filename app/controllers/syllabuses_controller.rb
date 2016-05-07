@@ -25,8 +25,6 @@ class SyllabusesController < ApplicationController
   # POST /syllabuses.json
   def create
 
-    byebug
-
     @syllabus = Syllabus.new(syllabus_params)
 
     # convert pdf to text

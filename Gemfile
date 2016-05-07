@@ -15,6 +15,10 @@ gem 'aws-sdk', '~> 1.5.7'
 gem 'rich'
 gem 'pdf-reader'
 
+group :production do
+	gem 'rails_12factor'
+end
+
 group :development, :test do
   gem 'byebug'
 end

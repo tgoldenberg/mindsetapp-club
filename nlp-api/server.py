@@ -81,7 +81,16 @@ class StringGeneratorWebService(object):
 		for topic in topicsList:
 			topic = ' '.join(topic.split())
 			if topic and topic != ' ':
-				resultTopics.append({'topic':topic, 'tags':[]})
+				topicWords = topic.split()
+				# it's a date!
+				date = ''
+				if topicWords[0].count('/') == 2:
+					date = topicWords[0]
+				resultObj = {'topic':topic, 'tags':[]}
+				if len(date):
+					resultObj['date'] = date
+					resultObj['topic'] = ' '.join(topicWords[1:])
+				resultTopics.append(resultObj)
 		
 		conceptSet = {}
 		for concept in conceptList:
@@ -105,7 +114,6 @@ class StringGeneratorWebService(object):
 			topic = topicResult['topic']
 			print "topic: |" + topic + "|"
 			topic = topic.lstrip().rstrip()
-			#tags = []
 
 			if i in conceptSetKeys:
 				conceptsInTopic = conceptSet[i]

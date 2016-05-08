@@ -10,6 +10,9 @@ class SyllabusesController < ApplicationController
   # GET /syllabuses/1
   # GET /syllabuses/1.json
   def show
+    @syllabus = Syllabus.find(params[:id]).to_json(:include => {:topics => {:include => {:tags => {:include => :problems}}}})
+    # @syllabus = Syllabus.find(params[:id])
+    # @syllabus = @syllabus.to_json(:include => {:topics => {:include => {:tags => {:include => :problems}}}})
   end
 
   # GET /syllabuses/new
@@ -47,7 +50,6 @@ class SyllabusesController < ApplicationController
           res = `curl --request POST --url http://52.5.47.112:8080/ --header 'cache-control: no-cache' --header 'content-type: application/json' --header 'postman-token: e58dd45c-3985-2e19-4648-111a702f1f12' --data '#{str}'`
           # res = {:topics=>[{:topic=>"Introduction to Functions and Polynomials", :tags=>["Function", "Polynomial"]}, {:topic=>"Equations and Factoring", :tags=>["Equation", "Factoring"]}, {:topic=>"Quadratic and Exponential Functions", :tags=>["Quadratic Function", "Exponent", "Function"]}], :title=>"Mrs. Johnson's Algebra II Class"}
           res = JSON.parse(res, symbolize_names: true)
-          byebug
           @syllabus.update_attributes(course_name: res[:title])
           res[:result].each do |topic|
           
@@ -76,8 +78,8 @@ class SyllabusesController < ApplicationController
         # json_obj = json_obj.to_json
         # get response and create topics / tags
 
-        # format.html { redirect_to @syllabus, notice: 'Syllabus was successfully created.' }
-        format.html { redirect_to @syllabus.as_json(:include => {:topics => {:include => {:tags => {:include => :problems}}}}), notice: 'Syllabus was successfully created.' }
+        format.html { redirect_to @syllabus, notice: 'Syllabus was successfully created.' }
+        # format.html { redirect_to @syllabus.as_json(:include => {:topics => {:include => {:tags => {:include => :problems}}}}), notice: 'Syllabus was successfully created.' }
         format.json { render :show, status: :created, location: @syllabus }
       else
         format.html { render :new }

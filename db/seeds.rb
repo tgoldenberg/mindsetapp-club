@@ -27,7 +27,7 @@ data = [
         body: "Solve each equation. Remember to check for extraneous solutions.",
         equation: "(n^2-n-6)/n^2-(2n+12)/n = (n-6)/(2n)",
         answer: "`{-2/3, -6}`"
-      }
+      },
       {
         is_proprietary: true,
         body: "Solve each equation. Remember to check for extraneous solutions.",

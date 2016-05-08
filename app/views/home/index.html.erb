@@ -1,1 +1,42 @@
-<%= react_component('Splash') %>
+
+
+<div>
+  <div class='splash-dark splash'>
+    <div class="container" style='justify-content: center; align-items: center; width: 100%; height: 100%; display: flex; flex-direction: column;' class='splash-container'>
+      <h1 class='white-text splash'>
+        Problem Sets on Demand
+      </h1>
+      <h4 class='white-text splash'>
+        We add to your problems... and are proud of it ;)
+      </h4>
+    </div>
+  </div>
+  <div class="container" class='splash-container'>
+    <h4 class='splash-h4'>
+      You tell us what you are teaching or learning. We find you more practice problems.
+    </h4>
+    <div class='splash-row'>
+      <div class='icon-container'>
+        <i class="material-icons md-48">content_paste</i>
+        <p>Teachers add problem sets</p>
+      </div>
+      <div class='icon-container'>
+        <i class="material-icons md-48">vpn_key</i>
+        <p>Our algorithm interprets and categorizes problems</p>
+      </div>
+      <div class='icon-container'>
+        <i class="material-icons md-48">thumb_up</i>
+        <p>Teachers select from suggested problem sets</p>
+      </div>
+      <div class='icon-container'>
+        <%= image_tag('ic_sentiment', style: 'width: 48px;') %>
+        <!-- <img src='assets/ic_sentiment' style={{ width: 48 }} /> -->
+        <p>Teacher work is amplified</p>
+      </div>
+      <div class='icon-container'>
+        <i class="material-icons md-48">school</i>
+        <p>Students can practice and sync their phone calendars</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -459,6 +459,7 @@ class SyllabusesController < ApplicationController
           res[:result].each do |topic|
 
             @t = Topic.find_or_create_by(name: topic[:topic])
+            @t.update_attributes(date: topic[:date])
 
             topic[:tags].each do |tag|
               tagg = Tag.find_or_create_by(name: tag)

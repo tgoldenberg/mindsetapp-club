@@ -30,37 +30,41 @@ class SyllabusesController < ApplicationController
     respond_to do |format|
       if @syllabus.save
 
-        # # create pdf object 
-        # pdf = PDF::Reader.new(params[:syllabus][:up_load].tempfile)
-        # # new string variable
+        # create pdf object 
+        pdf = PDF::Reader.new(params[:syllabus][:up_load].tempfile)
+        # new string variable
         # str = String.new
-        # # set string to blod of text from pages
-        # pdf.pages.each {|p| str += p.text}
-        # # scrub string and turn to json
-        # str.scrub!
-        # bool = system("curl --request POST --url http://52.5.47.112:8080/ --header 'cache-control: no-cache' --header 'content-type: application/json' --header 'postman-token: e58dd45c-3985-2e19-4648-111a702f1f12' --data '#{str}'")
-        #   byebug
-        # if bool
-        #   res = `curl --request POST --url http://52.5.47.112:8080/ --header 'cache-control: no-cache' --header 'content-type: application/json' --header 'postman-token: e58dd45c-3985-2e19-4648-111a702f1f12' --data '#{str}'`
-        #   # res = {:topics=>[{:topic=>"Introduction to Functions and Polynomials", :tags=>["Function", "Polynomial"]}, {:topic=>"Equations and Factoring", :tags=>["Equation", "Factoring"]}, {:topic=>"Quadratic and Exponential Functions", :tags=>["Quadratic Function", "Exponent", "Function"]}], :title=>"Mrs. Johnson's Algebra II Class"}
-        #   res = JSON.parse(res, symbolize_names: true)
-         
-        #   res[:topics].each do |topic|
+        # set string to blod of text from pages
+        str = pdf.page(1).text
+        # scrub string and turn to json
+        str.scrub!
+
+        bool = system("curl --request POST --url http://52.5.47.112:8080/ --header 'cache-control: no-cache' --header 'content-type: application/json' --header 'postman-token: e58dd45c-3985-2e19-4648-111a702f1f12' --data '#{str}'")
+        
+        # byebug
+        
+        if bool
+          res = `curl --request POST --url http://52.5.47.112:8080/ --header 'cache-control: no-cache' --header 'content-type: application/json' --header 'postman-token: e58dd45c-3985-2e19-4648-111a702f1f12' --data '#{str}'`
+          # res = {:topics=>[{:topic=>"Introduction to Functions and Polynomials", :tags=>["Function", "Polynomial"]}, {:topic=>"Equations and Factoring", :tags=>["Equation", "Factoring"]}, {:topic=>"Quadratic and Exponential Functions", :tags=>["Quadratic Function", "Exponent", "Function"]}], :title=>"Mrs. Johnson's Algebra II Class"}
+          res = JSON.parse(res, symbolize_names: true)
+          byebug
+          @syllabus.update_attributes(course_name: res[:title])
+          res[:result].each do |topic|
           
-        #     @t = Topic.find_or_create_by(name: topic[:topic])
+            @t = Topic.find_or_create_by(name: topic[:topic])
 
-        #     topic[:tags].each do |tag|
-        #       tagg = Tag.find_or_create_by(name: tag)
+            topic[:tags].each do |tag|
+              tagg = Tag.find_or_create_by(name: tag)
 
-        #       if tagg.save
-        #         @t.tags << tagg
-        #       end
+              if tagg.save
+                @t.tags << tagg
+              end
 
-        #     end
-        #     @t.save
-        #     @syllabus.topics << @t
-        #   end
-        # end
+            end
+            @t.save
+            @syllabus.topics << @t
+          end
+        end
 
         # {:topics=>[{:topic=>"Introduction to Functions and Polynomials", :tags=>["Function", "Polynomial"]}, {:topic=>"Equations and Factoring", :tags=>["Equation", "Factoring"]}, {:topic=>"Quadratic and Exponential Functions", :tags=>["Quadratic Function", "Exponent", "Function"]}], :title=>"Mrs. Johnson's Algebra II Class"}
         #   @syllabus.topics << topics_arr
@@ -72,7 +76,8 @@ class SyllabusesController < ApplicationController
         # json_obj = json_obj.to_json
         # get response and create topics / tags
 
-        format.html { redirect_to @syllabus, notice: 'Syllabus was successfully created.' }
+        # format.html { redirect_to @syllabus, notice: 'Syllabus was successfully created.' }
+        format.html { redirect_to @syllabus.as_json(:include => {:topics => {:include => {:tags => {:include => :problems}}}}), notice: 'Syllabus was successfully created.' }
         format.json { render :show, status: :created, location: @syllabus }
       else
         format.html { render :new }

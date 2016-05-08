@@ -15,7 +15,6 @@ class ProblemsController < ApplicationController
   # GET /problems/new
   def new
     @problem = Problem.new
-    @tag = Tag.new
   end
 
   # GET /problems/1/edit
@@ -25,10 +24,7 @@ class ProblemsController < ApplicationController
   # POST /problems
   # POST /problems.json
   def create
-
-    @tag = Tag.find(params[:problem][:tag][:id])
     @problem = Problem.new(problem_params)
-    @problem.tags << @tag
 
     respond_to do |format|
       if @problem.save
@@ -73,6 +69,6 @@ class ProblemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def problem_params
-      params.require(:problem).permit(:body, :equation, :answer)
+      params.fetch(:problem, {})
     end
 end

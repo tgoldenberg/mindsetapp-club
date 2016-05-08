@@ -18,11 +18,14 @@
  *= require_self
  */
 
-$brand-primary: '#1465cc';
-$brand-primary-dark: '#0A54B2';
-$red: '#ff1900';
-$offwhite: '#e9e9e9';
-$dark-gray: '#777';
+$brand-primary: #1465cc;
+$brand-primary-dark: #0A54B2;
+$red: #ff1900;
+$offwhite: #e9e9e9;
+$dark-gray: #777;
+$table-header: #4F81BD;
+$table-odd: #D0D8E8;
+$table-even: #E9EDF4;
 
 .navbar-inverse {
   margin-bottom: 0px;
@@ -60,4 +63,36 @@ h1.splash {
 h4.splash {
   font-size: 28px;
   font-weight: 300;
+}
+.account-header {
+  background-color: $brand-primary;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  height: 100px;
+  padding-left: 20px;
+  color: white;
+}
+.account-header .avatar {
+  border-radius: 50%;
+  margin: 5px;
+  height: 60px;
+}
+.username {
+  font-weight: 300;
+  margin-left: 40px;
+  font-size: 20px;
+}
+.table-striped thead tr th {
+  background-color: $table-header;
+  color: white;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: $table-odd;
+}
+.table-striped tbody tr:nth-of-type(even){
+  background-color: $table-even;
+}
+.btn-file {
+  margin-bottom: 10px;
 }

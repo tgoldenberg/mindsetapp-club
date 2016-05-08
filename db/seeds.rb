@@ -8,6 +8,124 @@
 
 data = [
   {
+    tag_name: 'Rational equation',
+    problems: [
+      {
+        is_proprietary: true,
+        body: "Solve each equation. Remember to check for extraneous solutions.",
+        equation: "(k+4)/4+(k-1)/4=(k+4)/(4k)",
+        answer: "{-2, 1}"
+      },
+      {
+        is_proprietary: true,
+        body: "Solve each equation. Remember to check for extraneous solutions.",
+        equation: "1/(2m^2)=1/m-1/2",
+        answer: "{1}"
+      },
+      {
+        is_proprietary: true,
+        body: "Solve each equation. Remember to check for extraneous solutions.",
+        equation: "(n^2-n-6)/n^2-(2n+12)/n = (n-6)/(2n)",
+        answer: "`{-2/3, -6}`"
+      }
+      {
+        is_proprietary: true,
+        body: "Solve each equation. Remember to check for extraneous solutions.",
+        equation: "(3x^2+24x+48)/x^2 + (x-6)/(2x^2)= 1/x^2",
+        answer: "`{-8/3, -11/2}`"
+      },
+      {
+        is_proprietary: true,
+        body: "Solve each equation. Remember to check for extraneous solutions.",
+        equation: "(k^2+2k-8)/(3k^3)=1/(3k^2)+1/(k^2)",
+        answer: "`{-2,4}`"
+      }
+    ]
+  },
+  {
+    tag_name: 'Slope',
+    problems: [
+      {
+        is_proprietary: true,
+        body: 'Find the slope of each line',
+        equation: 'y=-5/2x-5',
+        answer: '-5/2'
+      },
+      {
+        is_proprietary: true,
+        body: 'Find the slope of each line.',
+        equation: 'y=-4/3x-1',
+        answer: '-4/3'
+      },
+      {
+        is_proprietary: true,
+        body: 'Find the slope of each line',
+        equation: 'y=-x+3',
+        answer: '-1'
+      }
+    ]
+  },
+  {
+    tag_name: 'Balancing equations',
+    problems: [
+      {
+        is_proprietary: true,
+        body: 'Simplify.',
+        equation: "6 = a/4+ 2",
+        answer: '`4`'
+      },
+      {
+        is_proprietary: true,
+        body: 'Simplify.',
+        equation: "9x-7=-7",
+        answer: '`0`'
+      },
+      {
+        is_proprietary: true,
+        body: 'Simplify.',
+        equation: "0=4+n/5",
+        answer: '`-20`'
+      }
+    ]
+  },
+  {
+    tag_name: 'Linear equation',
+    problems: [
+      {
+        is_proprietary: true,
+        body: 'Write the slope-intercept form of each line.',
+        equation: '3x-2y=-16',
+        answer: 'y=3/2x+8'
+      },
+      {
+        is_proprietary: true,
+        body: 'Write the slope-intercept form of each line.',
+        equation: '13x-11y=-12',
+        answer: 'y=13/11x+12/11'
+      },
+      {
+        is_proprietary: true,
+        body: 'Write the slope-intercept form of each line',
+        equation: '9x-7y=-7',
+        answer: ' y=9/7x=1'
+      }
+    ]
+  },
+  {
+    tag_name: 'Inequalities',
+    problems: [
+
+    ]
+  },
+  {
+    tag_name: 'Exponents',
+    problems: [
+
+    ]
+  },
+
+
+  {
     tag_name: 'Polynomial',
     problems: [
       {
@@ -109,7 +227,7 @@ data = [
     ]
   },
   {
-    tag_name: 'Factoring',
+    tag_name: 'Factorization',
     problems: [
       {
         is_proprietary: true,
@@ -273,12 +391,6 @@ data = [
         body: 'Solve each equation. Remember to check for extraneous solutions.',
         equation: '(3x^2+24x+48)/x^2 + (x-6)/(2x^2)= 1/x^2',
         answer: '{-8/3, -11/2}'
-      },
-      {
-        is_proprietary: true,
-        body: '',
-        equation: '',
-        answer: ''
       }
     ]
   }

@@ -1,17 +1,52 @@
-<%= form_for(@problem) do |f| %>
-  <% if @problem.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@problem.errors.count, "error") %> prohibited this problem from being saved:</h2>
+<div class="container">
+  <%= form_for(@problem) do |f| %>
+    <% if @problem.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@problem.errors.count, "error") %> prohibited this problem from being saved:</h2>
 
-      <ul>
-      <% @problem.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+        <ul>
+        <% @problem.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= f.label 'Word problem text' %>:<br><br>
+    <%= f.text_field :body %><br><br>
+    <%= f.label 'Equation body' %>:<br><br>
+    <%= f.text_area :equation, id: "equation-body"%><br><br>
+    <%= f.label 'Answer' %>:<br><br>
+    <%= f.text_field :answer %><br><br>
+
+    <%= f.label 'Tag problem' %>:<br><br>
+    <%= f.fields_for @tag do |tf|%>
+      <%= tf.collection_select :id, Tag.order(:name),:id,:name  %>
+    <% end %>
+
+    <br><br>
+
+    <div class="actions">
+      <%= f.submit %>
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+  <h1 id="equation-display"></h1>
+
+  <p>Need Help?</p>
+  <a href="http://asciimath.org/">Style Guide</a>
+
+</div>
+<script type="text/javascript">
+  $('#equation-body').keypress(function(e){
+    
+    var equationText = $('#equation-body').val()
+    equationText = '`' + equationText + '`'
+    $('#equation-display').html(equationText);
+    setTimeout(reQueue, 1000);
+  });
+
+  function reQueue(){
+    MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+  }
+</script>

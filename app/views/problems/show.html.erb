@@ -1,4 +1,10 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+	<p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_problem_path(@problem) %> |
-<%= link_to 'Back', problems_path %>
+	<h2><%= @problem.body %></h2>
+	<h2>`<%= @problem.equation %>`</h2>
+	<h2><%= @problem.answer %></h2>
+
+	<%= link_to 'Edit', edit_problem_path(@problem) %> |
+	<%= link_to 'Back', problems_path %>
+</div>

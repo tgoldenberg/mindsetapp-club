@@ -1,4 +1,28 @@
 <p id="notice"><%= notice %></p>
 
+<h1><%= @syllabus.course_name %></h1>
+
+<h2>Topics:</h2>
+<% @syllabus.topics.each do |topic| %>
+
+	<h3><%= topic.name %></h3>
+
+	<% topic.tags.each do |tag|%>
+
+		<h4><%=tag.name%></h4>
+
+		<h1><%= tag.problems.count %></h1>
+
+		<% tag.problems.each do |problem|%>
+			<p><%= problem.body %></p>
+			<hr>
+			<br>
+			<p><%= problem.answer %></p>
+		<%end%>
+
+	<%end%>
+
+<%end%>
+
 <%= link_to 'Edit', edit_syllabus_path(@syllabus) %> |
 <%= link_to 'Back', syllabuses_path %>

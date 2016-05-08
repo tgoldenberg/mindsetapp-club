@@ -144,7 +144,7 @@ data = [
     ]
   },
   {
-    tag_name: 'Function',
+    tag_name: 'Functions',
     problems: [
       {
         is_proprietary: true,
@@ -248,7 +248,7 @@ data = [
     ]
   },
   {
-    tag_name: 'Equation',
+    tag_name: 'Equations',
     problems: [
       {
         is_proprietary: true,

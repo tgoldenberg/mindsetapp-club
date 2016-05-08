@@ -12,8 +12,141 @@ class SyllabusesController < ApplicationController
   # GET /syllabuses/1
   # GET /syllabuses/1.json
   def show
-    @syllabus = Syllabus.find(params[:id]).to_json(:include => {:topics => {:include => {:tags => {:include => :problems}}}})
-    # @syllabus = Syllabus.find(params[:id])
+    # @syllabus = Syllabus.find(params[:id]).as_json(:include => {:topics => {:include => {:tags => {:include => :problems}}}})
+    @class_info = {
+      "id": "58740898-bcdc-4a77-a924-ccb50108ce4d",
+      "course_id": "5bc3f127-b33a-457e-ae47-d4ec9a8fa706",
+      "course_title": "Algebra",
+      "subject": "Algebra",
+      "school_year": "2016",
+      "staff": [
+        {
+          "id": "b3b83f93-de22-4231-a171-dddd0f302480",
+          "last_name": "morgan",
+          "first_name": "emma",
+          "middle_name": "null"
+        }
+      ],
+      "students": [
+        {
+          "id": "141791cd-cb40-4142-b55f-40c7fe820a43",
+          "last_name": "watts",
+          "first_name": "bertha",
+          "middle_name": "null"
+        },
+        {
+          "id": "2868e9d0-f6f0-4dba-be0b-576d24c992ce",
+          "last_name": "weaver",
+          "first_name": "jessie",
+          "middle_name": "null"
+        },
+        {
+          "id": "48608c29-66cb-4240-b834-e5fb8c23ec68",
+          "last_name": "barnes",
+          "first_name": "marc",
+          "middle_name": "null"
+        },
+        {
+          "id": "87453ffa-4ce8-49e8-9195-1860eed4ab47",
+          "last_name": "prescott",
+          "first_name": "arlene",
+          "middle_name": "null"
+        },
+        {
+          "id": "9e5ce90f-3755-4519-8b9b-faddb7aa274a",
+          "last_name": "riley",
+          "first_name": "erin",
+          "middle_name": "null"
+        },
+        {
+          "id": "b1adcabe-e0f2-4b1b-a81c-62885cd985ea",
+          "last_name": "pena",
+          "first_name": "gertrude",
+          "middle_name": "null"
+        },
+        {
+          "id": "bd182b76-08a3-4c5d-a243-035aa606d300",
+          "last_name": "morgan",
+          "first_name": "emma",
+          "middle_name": "null"
+        },
+        {
+          "id": "d949a8a7-dfb4-4b0c-90dd-fd827a9b547b",
+          "last_name": "elliott",
+          "first_name": "chris",
+          "middle_name": "null"
+        },
+        {
+          "id": "e75a2456-2e71-4304-9c5f-6e4eaa4b7934",
+          "last_name": "dean",
+          "first_name": "joseph",
+          "middle_name": "null"
+        },
+        {
+          "id": "fc1ce8c6-8cf9-4194-a9bc-cf607ec8e19f",
+          "last_name": "mcdonalid",
+          "first_name": "jose",
+          "middle_name": "null"
+        }
+      ],
+      "term": [
+        {
+          "id": "4dcccac4-19bf-11e5-b60b-1697f925ec7b",
+          "meeting_time": [
+            {
+              "time_table_day": "Monday",
+              "time_table_period": "Period 5",
+              "time": [
+                {
+                  "start_time": "9AM",
+                  "end_time": "10AM"
+                }
+              ]
+            },
+            {
+              "time_table_day": "Tuesday",
+              "time_table_period": "Period 5",
+              "time": [
+                {
+                  "start_time": "9AM",
+                  "end_time": "10AM"
+                }
+              ]
+            },
+            {
+              "time_table_day": "Wednesday",
+              "time_table_period": "Period 5",
+              "time": [
+                {
+                  "start_time": "9AM",
+                  "end_time": "10AM"
+                }
+              ]
+            }
+          ],
+          "rooms": [
+            {
+              "room_number": "Room A"
+            },
+            {
+              "room_number": "Room A"
+            },
+            {
+              "room_number": "Room B"
+            }
+          ]
+        }
+      ]
+    }
+    @syllabus = Syllabus.find(params[:id])
+    @topics = [];
+    @syllabus.topics.each do |topic|
+      t = { topic: topic, tags: [] }
+      topic.tags.each do |tag|
+        t[:tags].push({ tag: tag, problems: tag.problems })
+      end
+      @topics.push(t)
+    end
     # @syllabus = @syllabus.to_json(:include => {:topics => {:include => {:tags => {:include => :problems}}}})
   end
 

@@ -13,10 +13,6 @@ class Account extends React.Component{
 };
 
 let styles = {
-  header: {
-    backgroundColor: Colors.brandPrimary,
-    color: 'white',
-  },
   container: {
     flex: 1,
     justifyContent: 'center',

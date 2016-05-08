@@ -3,7 +3,19 @@ class Syllabus extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      topics: props.topics
+      topics: props.topics.map((topic) => {
+        return {
+          topic: topic.topic,
+          tags: topic.tags.map((tag) => {
+            return {
+              tag: tag.tag,
+              problems: tag.problems.map((problem) => {
+                return Object.assign({}, problem, {approved: false})
+              })
+            }
+          })
+        }
+      })
     }
   }
   _renderEmptyTable(){
@@ -24,7 +36,23 @@ class Syllabus extends React.Component{
       </table>
     )
   }
-  _renderTable(topic){
+  _renderApproved(problem, i, j, k){
+    return (
+      <i className="material-icons md-48 animated bounceIn" style={{ color: 'green' }}>check_box</i>
+    )
+  }
+  _renderUnapproved(problem, i, j, k){
+    return (
+      <i
+        onClick={() => {
+          let { topics } = this.state;
+          topics[i].tags[j].problems[k].approved = true;
+          this.setState({topics: topics})
+        }}
+        className="material-icons md-48">check_box_outline_blank</i>
+    )
+  }
+  _renderTable(topic, i){
     return (
       <table className="table table-striped" style={{ marginLeft: 10 }}>
         <thead>
@@ -34,12 +62,14 @@ class Syllabus extends React.Component{
           </tr>
         </thead>
         <tbody>
-          {topic.tags.map((tag) => {
+          {topic.tags.map((tag, j) => {
             return (
-              tag.problems.slice(0, 2).map((problem) => {
+              tag.problems.slice(0, 2).map((problem, k) => {
                 return (
                   <tr>
-                    <th>Not approved</th>
+                    <th>
+                      {problem.approved ? this._renderApproved(problem, i, j, k) : this._renderUnapproved(problem, i, j, k)}
+                    </th>
                     <th>{problem.equation ? "`" + problem.equation + "`" : problem.body}</th>
                   </tr>
                 )
@@ -91,7 +121,7 @@ class Syllabus extends React.Component{
                         )
                       })}</span>
                   </h4>
-                  {topic.tags.length && topic.tags.map((tag) => tag.problems.length).reduce((p,n) => p+n) > 0 ? this._renderTable(topic) : this._renderEmptyTable()}
+                  {topic.tags.length && topic.tags.map((tag) => tag.problems.length).reduce((p,n) => p+n) > 0 ? this._renderTable(topic, idx) : this._renderEmptyTable()}
                 </div>
                 <div className="col-md-4">
                   <button
@@ -105,44 +135,7 @@ class Syllabus extends React.Component{
             )
           })}
         </div>
-        <div className="modal fade" id="myModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel">
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 className="modal-title" id="exampleModalLabel">Choose your RSS Feeds</h4>
-              </div>
-              <div className="modal-body">
-                <div className="card-block p-y-0">
-                  <ul className="nav nav-tabs sr-only" role="tablist">
-                    <li className="nav-item">
-                      <a className="nav-link" href="#default" role="tab" data-toggle="tab">Sources</a>
-                    </li>
-                  </ul>
-                  <div className="tab-content">
-                    <div role="tabpanel" className="tab-pane fade in active" id="default">
-                      <ul className="p-l-0 m-b-0">
-                        <ul className="list-group list-group-flush">
-                          
-                        </ul>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                <button
-                  type="button"
-                  className="btn btn-primary">
-                  Save changes
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+
       </div>
     );
   }

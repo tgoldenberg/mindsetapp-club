@@ -305,7 +305,7 @@ class SyllabusesController < ApplicationController
     respond_to do |format|
       if @syllabus.save
 
-        # create pdf object 
+        # create pdf object
         pdf = PDF::Reader.new(params[:syllabus][:up_load].tempfile)
         # new string variable
         # str = String.new
@@ -315,16 +315,17 @@ class SyllabusesController < ApplicationController
         str.scrub!
 
         bool = system("curl --request POST --url http://52.5.47.112:8080/ --header 'cache-control: no-cache' --header 'content-type: application/json' --header 'postman-token: e58dd45c-3985-2e19-4648-111a702f1f12' --data '#{str}'")
-        
+
         # byebug
-        
+
         if bool
           res = `curl --request POST --url http://52.5.47.112:8080/ --header 'cache-control: no-cache' --header 'content-type: application/json' --header 'postman-token: e58dd45c-3985-2e19-4648-111a702f1f12' --data '#{str}'`
           # res = {:topics=>[{:topic=>"Introduction to Functions and Polynomials", :tags=>["Function", "Polynomial"]}, {:topic=>"Equations and Factoring", :tags=>["Equation", "Factoring"]}, {:topic=>"Quadratic and Exponential Functions", :tags=>["Quadratic Function", "Exponent", "Function"]}], :title=>"Mrs. Johnson's Algebra II Class"}
           res = JSON.parse(res, symbolize_names: true)
+
           @syllabus.update_attributes(course_name: res[:title])
           res[:result].each do |topic|
-          
+
             @t = Topic.find_or_create_by(name: topic[:topic])
 
             topic[:tags].each do |tag|
@@ -342,7 +343,7 @@ class SyllabusesController < ApplicationController
 
         # {:topics=>[{:topic=>"Introduction to Functions and Polynomials", :tags=>["Function", "Polynomial"]}, {:topic=>"Equations and Factoring", :tags=>["Equation", "Factoring"]}, {:topic=>"Quadratic and Exponential Functions", :tags=>["Quadratic Function", "Exponent", "Function"]}], :title=>"Mrs. Johnson's Algebra II Class"}
         #   @syllabus.topics << topics_arr
-        #   
+        #
 
         # convert pdf to text
         # send prem text blob

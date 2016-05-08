@@ -2,34 +2,12 @@
 class Account extends React.Component{
   render(){
     return (
-      <div style={styles.container}>
-        <div className="account-header">
-          <p>PROFILE</p>
-          <p>USER NAME</p>
-        </div>
-        <div className='col-md-9'>
-          <p>My Classes</p>
-          <div>
-            <p>COURSE TITLE</p>
-            <p>TERM</p>
-            <ul>
-              <li>MEETING TIMES</li>
-              <li>MONDAY</li>
-              <li>TUESDAY</li>
-            </ul>
-          </div>
-          <div>
-            <p>COURSE TITLE</p>
-            <p>TERM</p>
-            <ul>
-              <li>MEETING TIMES</li>
-              <li>MONDAY</li>
-              <li>TUESDAY</li>
-            </ul>
-          </div>
-        </div>
-        <div className="col-md-3"></div>
-      </div>
+      <form className="new_syllabus" id="new_syllabus" enctype="multipart/form-data" action="/syllabuses" accept-charset="UTF-8" method="post">
+        <input name="utf8" type="hidden" value="&#x2713;" />
+        <input type="hidden" name="authenticity_token" value={this.props.token} />
+        <input className="btn-file" type="file" name="syllabus[up_load]" id="syllabus_up_load" />
+        <input type="submit" name="commit" value="Upload Syllabus" className="btn btn-primary btn-lg disabled" />
+      </form>
     );
   }
 };

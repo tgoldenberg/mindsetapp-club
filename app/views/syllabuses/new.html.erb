@@ -1,15 +1,39 @@
-<h1>Hello From Mind Set App (dot CLUB)</h1>
-
-<h2>Upload a syllabus!</h2>
-
-<br>
-
-<%= form_for @syllabus, url: syllabuses_path, html: { multipart: true } do |form| %>
-  <%= form.file_field :up_load %>
-  <%= form.submit 'up load syllabus'%>
-<% end %>
-
-<br>
-
-<%= link_to 'problems', problems_path %>
-<%= link_to 'topics', topics_path %>
+<!-- <%= react_component('Account', props={api: @api}) %> -->
+<div style={styles.container}>
+  <div class="account-header">
+    <%= image_tag('shabnum.jpg', class: 'avatar') %>
+    <p class='username'><%= @api[:user][:first_name] %> <%= @api[:user][:last_name] %></p>
+  </div>
+  <div class='col-md-12'>
+    <h2 class=>Classes</h2>
+    <% @api[:data].each do |c| %>
+      <div class='col-md-8'>
+        <p><%= c[:subject]%>, <%= c[:school_year]%>, <%= c[:students].length %> students</p>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Day</th>
+              <th>Time</th>
+              <th>Room #</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% c[:term][0][:meeting_time].each_with_index do |time, i| %>
+              <tr>
+                <td><%= time[:time_table_day] %></td>
+                <td><%= time[:time][0][:start_time] %> - <%= time[:time][0][:end_time] %></td>
+                <td><%= c[:term][0][:rooms][i][:room_number] %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-4">
+        <%= form_for @syllabus, url: syllabuses_path, html: { multipart: true } do |form| %>
+          <%= form.file_field :up_load %>
+          <%= form.submit 'up load syllabus'%>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

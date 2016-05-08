@@ -17,7 +17,8 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <img src="assets/logo.png" style='width: 60px; margin: 8px;'/>
+        <%= image_tag('logo.png', style: 'width: 60px; margin: 8px;') %>
+        <!-- <img src="assets/logo.png" style='width: 60px; margin: 8px;'/> -->
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
@@ -27,9 +28,9 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="#">Log in with HMH</a></li>
+              <li><%= link_to 'Login with HMH', new_syllabus_path %></li>
               <li role="separator" class="divider"></li>
-              <li><a href="#">Log with Email</a></li>
+              <li><%= link_to 'Login with Email', new_syllabus_path %></li>
             </ul>
           </li>
         </ul>

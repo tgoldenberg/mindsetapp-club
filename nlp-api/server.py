@@ -132,6 +132,10 @@ class StringGeneratorWebService(object):
 				if not tags:
 					tags = []
 				tags.append('Quadratic equation')
+			elif topic.find('Balancing') > -1:
+				if not tags:
+					tags = []
+				tags.append('Balancing equations')
 			resultTopics[i]['tags'] = tags
 			i += 1
 

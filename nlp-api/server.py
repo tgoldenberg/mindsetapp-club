@@ -105,14 +105,25 @@ class StringGeneratorWebService(object):
 			topic = topicResult['topic']
 			print "topic: |" + topic + "|"
 			topic = topic.lstrip().rstrip()
+			#tags = []
+
 			if i in conceptSetKeys:
 				conceptsInTopic = conceptSet[i]
 				tags = list(conceptsInTopic)
+				
 				print "\ttags: " + str(tags)
 			elif len(topic) > 0:
 				tags = [topic.split(' ')[-1].capitalize()]
 				print "\tlast word: " + str(tags)
-
+			
+			if topic.find('Rational') > -1:
+				if not tags:
+					tags = []
+				tags.append('Rational equation')
+			elif topic.find('Quadratic') > -1:
+				if not tags:
+					tags = []
+				tags.append('Quadratic equation')
 			resultTopics[i]['tags'] = tags
 			i += 1
 
@@ -138,9 +149,16 @@ def cleanupTag(candidate):
 
 
 def extractTopicsSection(payload):
-	startIdx = payload.find('Study:') + len('Study:') + 2
+	startIdx = payload.find('Study:') + len('Study:')
 	endIdx = payload.find('Evaluations')
-	return payload[startIdx:endIdx]
+
+	if startIdx < -1:
+		startIdx = 0
+
+	if endIdx < -1:
+		endIdx = len(payload)
+	
+	return payload[startIdx:endIdx].lstrip().rstrip()
 
 def filterByScore(conceptList):
 	result = []

@@ -97,6 +97,7 @@ class Syllabus extends React.Component{
                 <th>Teacher</th>
                 <th>Year</th>
                 <th>Class Info</th>
+                <th>Code</th>
               </tr>
             </thead>
             <tbody>
@@ -104,6 +105,7 @@ class Syllabus extends React.Component{
                 <th>{classInfo.staff[0].first_name} {classInfo.staff[0].last_name}</th>
                 <th>{classInfo.school_year}</th>
                 <th>Room: {classInfo.term[0].rooms[0].room_number}, Period: {classInfo.term[0].meeting_time[0].time_table_period}</th>
+                <th>XFIOJ123jklhasdf</th>
               </tr>
             </tbody>
           </table>

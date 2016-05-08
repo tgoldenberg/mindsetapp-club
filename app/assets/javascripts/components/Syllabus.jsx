@@ -34,7 +34,7 @@ class Syllabus extends React.Component{
                 return (
                   <tr>
                     <th>Not approved</th>
-                    <th>{problem.equation ? problem.equation : problem.body}</th>
+                    <th>{problem.equation ? "`" + problem.equation + "`" : problem.body}</th>
                   </tr>
                 )
               })

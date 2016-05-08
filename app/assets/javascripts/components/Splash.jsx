@@ -4,7 +4,7 @@ class Splash extends React.Component{
     return (
       <div>
         <div className='splash-dark splash'>
-          <div className="container" style={styles.container}>
+          <div className="container" style={styles.container} className='splash-container'>
             <h1 className='white-text splash'>
               Problem Sets on Demand
             </h1>
@@ -13,28 +13,28 @@ class Splash extends React.Component{
             </h4>
           </div>
         </div>
-        <div className="container" style={styles.container}>
-          <h4 style={{ width: '100%', textAlign: 'center' }}>
+        <div className="container" style={styles.container} className='splash-container'>
+          <h4 className='splash-h4' style={{ width: '100%', textAlign: 'center' }}>
             You tell us what you are teaching or learning. We find you more practice problems.
           </h4>
-          <div style={styles.row}>
-            <div style={styles.iconContainer}>
+          <div style={styles.row} className='splash-row'>
+            <div style={styles.iconContainer} className='icon-container'>
               <i className="material-icons md-48">content_paste</i>
               <p>Teachers add problem sets</p>
             </div>
-            <div style={styles.iconContainer}>
+            <div style={styles.iconContainer} className='icon-container'>
               <i className="material-icons md-48">vpn_key</i>
               <p>Our algorithm interprets and categorizes problems</p>
             </div>
-            <div style={styles.iconContainer}>
+            <div style={styles.iconContainer} className='icon-container'>
               <i className="material-icons md-48">thumb_up</i>
               <p>Teachers select from suggested problem sets</p>
             </div>
-            <div style={styles.iconContainer}>
+            <div style={styles.iconContainer} className='icon-container'>
               <img src='assets/ic_sentiment' style={{ width: 48 }} />
               <p>Teacher work is amplified</p>
             </div>
-            <div style={styles.iconContainer}>
+            <div style={styles.iconContainer} className='icon-container'>
               <i className="material-icons md-48">school</i>
               <p>Students can practice and sync their phone calendars</p>
             </div>

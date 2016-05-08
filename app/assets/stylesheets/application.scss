@@ -96,3 +96,28 @@ h4.splash {
 .btn-file {
   margin-bottom: 10px;
 }
+.splash-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.icon-container {
+  flex: 1;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.splash-h4 {
+  width: 100%;
+  text-align: center;
+}
+.splash-container {
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}

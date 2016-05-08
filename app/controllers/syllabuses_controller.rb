@@ -12,6 +12,8 @@ class SyllabusesController < ApplicationController
   # GET /syllabuses/1
   # GET /syllabuses/1.json
   def show
+    @problem = Problem.new
+    @tag = Tag.new
     @class_info = {
       "id": "58740898-bcdc-4a77-a924-ccb50108ce4d",
       "course_id": "5bc3f127-b33a-457e-ae47-d4ec9a8fa706",

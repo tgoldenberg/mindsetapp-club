@@ -1,5 +1,23 @@
 
 class Syllabus extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      topics: props.topics.map((topic) => {
+        return {
+          topic: topic.topic,
+          tags: topic.tags.map((tag) => {
+            return {
+              tag: tag.tag,
+              problems: tag.problems.map((problem) => {
+                return Object.assign({}, problem, {approved: false})
+              })
+            }
+          })
+        }
+      })
+    }
+  }
   _renderEmptyTable(){
     return (
       <table className="table table-striped" style={{ marginLeft: 10 }}>
@@ -18,7 +36,23 @@ class Syllabus extends React.Component{
       </table>
     )
   }
-  _renderTable(topic){
+  _renderApproved(problem, i, j, k){
+    return (
+      <i className="material-icons md-48 animated bounceIn" style={{ color: 'green' }}>check_box</i>
+    )
+  }
+  _renderUnapproved(problem, i, j, k){
+    return (
+      <i
+        onClick={() => {
+          let { topics } = this.state;
+          topics[i].tags[j].problems[k].approved = true;
+          this.setState({topics: topics})
+        }}
+        className="material-icons md-48">check_box_outline_blank</i>
+    )
+  }
+  _renderTable(topic, i){
     return (
       <table className="table table-striped" style={{ marginLeft: 10 }}>
         <thead>
@@ -28,12 +62,14 @@ class Syllabus extends React.Component{
           </tr>
         </thead>
         <tbody>
-          {topic.tags.map((tag) => {
+          {topic.tags.map((tag, j) => {
             return (
-              tag.problems.slice(0, 2).map((problem) => {
+              tag.problems.slice(0, 2).map((problem, k) => {
                 return (
                   <tr>
-                    <th>Not approved</th>
+                    <th>
+                      {problem.approved ? this._renderApproved(problem, i, j, k) : this._renderUnapproved(problem, i, j, k)}
+                    </th>
                     <th>{problem.equation ? "`" + problem.equation + "`" : problem.body}</th>
                   </tr>
                 )
@@ -45,7 +81,8 @@ class Syllabus extends React.Component{
     )
   }
   render(){
-    let { syllabus, topics, classInfo } = this.props;
+    let { syllabus, classInfo } = this.props;
+    let { topics } = this.state;
     console.log('TOPICS', topics);
     return (
       <div>
@@ -84,15 +121,21 @@ class Syllabus extends React.Component{
                         )
                       })}</span>
                   </h4>
-                  {topic.tags.length && topic.tags.map((tag) => tag.problems.length).reduce((p,n) => p+n) > 0 ? this._renderTable(topic) : this._renderEmptyTable()}
+                  {topic.tags.length && topic.tags.map((tag) => tag.problems.length).reduce((p,n) => p+n) > 0 ? this._renderTable(topic, idx) : this._renderEmptyTable()}
                 </div>
                 <div className="col-md-4">
-                  <button className="btn btn-primary btn-lg" style={{ marginTop: 60 }}>Upload Problem</button>
+                  <button
+                    onClick={()=> {
+                      $('#myModal').modal('show');
+                    }}
+                    className="btn btn-primary btn-lg" style={{ marginTop: 60 }}
+                    >Upload Problem</button>
                 </div>
               </div>
             )
           })}
         </div>
+
       </div>
     );
   }
